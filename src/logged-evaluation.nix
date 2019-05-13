@@ -65,6 +65,9 @@ let
       # https://github.com/NixOS/nix/blob/92d08c02c84be34ec0df56ed718526c382845d1a/src/nix-build/nix-build.cc#
       [ -e $stdenv/setup ] && . $stdenv/setup
 
+      # Redefine addToSearchPathWithCustomDelimiter to integrate with
+      # lorri's environment variable setup map. Then, call the original
+      # function. (dirty bash hack.)
       if declare -f addToSearchPathWithCustomDelimiter > /dev/null 2>&1 ; then
         lorri_addToSearchPathWithCustomDelimiter="$(declare -f addToSearchPathWithCustomDelimiter  | head -n-1 | tail -n+3)"
         addToSearchPathWithCustomDelimiter() {
@@ -85,7 +88,6 @@ let
 
   trace_attribute = name: drv:
     builtins.trace (trace_attribute_msg name drv);
-
 
   gc-root = keep-env-hack imported;
 in (trace_attribute "shell" imported)
