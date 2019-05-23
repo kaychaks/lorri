@@ -49,6 +49,10 @@ let
     origPATH = drv.PATH or "";
     PATH = runtimeCfg.path;
 
+    # The derivation we're examining may be multi-output. However,
+    # this builder only produces the «out» output. Not specifying a
+    # single output means we would fail to start a shell for those
+    # projects.
     origOutputs = drv.outputs or [];
     outputs = [ "out" ];
 
