@@ -77,7 +77,7 @@ let
       fi
 
       # target/lorri#23
-      # https://github.com/NixOS/nix/blob/master/src/nix-build/nix-build.cc#L422
+      # https://github.com/NixOS/nix/blob/bfc6bdf222d00d3cb1b0e168a5d55d1a7c9cdb72/src/nix-build/nix-build.cc#L424
       if [ "$(type -t runHook)" = function ]; then
        runHook shellHook;
       fi;
